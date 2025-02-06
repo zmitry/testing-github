@@ -27,7 +27,7 @@ jobs:
           const [major, minor, patch] = latestTag.split('.').map(Number);
           const newVersion = `${major}.${minor}.${patch + 1}`;
 
-          await octokit.rest.git.createRef({
+          await github.rest.git.createRef({
             owner: context.repo.owner,
             repo: context.repo.repo,
             ref: `refs/tags/${newVersion}`,
