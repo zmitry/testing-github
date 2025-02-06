@@ -17,6 +17,12 @@ jobs:
       uses: actions/github-script@v7
       with:
         script: |
+          function incrementVersion(version) {
+              return version.replace(/(v\d+\.\d+\.)\d+/, (match, prefix) => {
+                  let currentVersion = parseInt(match.replace(prefix, ''));
+                  return `${prefix}${currentVersion + 1}`;
+              });
+          }
           const { data: tags } = await github.rest.repos.listTags({
             owner: context.repo.owner,
             repo: context.repo.repo,
@@ -24,10 +30,9 @@ jobs:
           });
           
           const latestTag = tags.length > 0 ? tags[0].name : '0.0.0';
-          const [major, minor, patch, rest] = latestTag.split('.')
-          const newVersion = `${major}.${minor}.${Number(patch) + 1}`;
+          const newVersion = incrementVersion(latestTag)
           console.log(newVersion, tags, context)
-
+          
           await github.rest.repos.createRelease({
             owner: context.repo.owner,
             repo: context.repo.repo,
