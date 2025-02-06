@@ -14,6 +14,9 @@ on:
         description: 'Optional: URL to deployment logs'
         required: false
 
+permissions:  # Add this section to grant deployment write access
+  contents: read
+  deployments: write
 jobs:
   update-status:
     runs-on: ubuntu-latest
