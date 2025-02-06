@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     environment:
-      name: production  # Specify the environment as 'production'
+      name: production2  # Specify the environment as 'production'
       url: https://your-production-app.com  # Optional: Add URL for the environment
 
     steps:
