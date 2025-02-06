@@ -27,16 +27,12 @@ jobs:
           const [major, minor, patch, rest] = latestTag.split('.')
           const newVersion = `${major}.${minor}.${Number(patch) + 1}`;
           console.log(newVersion, tags, context)
-          await github.rest.git.createRef({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            ref: `refs/tags/${newVersion}`,
-            sha: context.sha
-          });
+
           await github.rest.repos.createRelease({
             owner: context.repo.owner,
             repo: context.repo.repo,
             tag_name: latestTag,
+            target_commitish: context.sha,
             name: latestTag,
             body: "",
             draft: true,
