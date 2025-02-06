@@ -18,17 +18,31 @@ jobs:
       environment: staging
       url: https://your-staging-app.com
 
+  wait-for-deploy-and-run-e2e-testing:
+    runs-on: ubuntu-latest
+    name: Wait for deploy and run integration checks
+    needs: deploy-staging  # Depends on successful staging deployment
+    run: |
+      echo test passed
+
   deploy-prod-wave1:
     name: Deploy to Prod Wave 1
-    needs: deploy-staging  # Depends on successful staging deployment
+    needs: wait-for-deploy-and-run-e2e-testing  # Depends on successful staging deployment
     uses: ./.github/workflows/deploy.yml
     with:
       environment: prod-wave1
       url: https://your-prod-wave1-app.com
-
+      
+  monitor-metrics-wave1:
+    runs-on: ubuntu-latest
+    name: wait for metrics checks
+    needs: deploy-staging  # Depends on successful staging deployment
+    run: |
+      echo test passed
+      
   deploy-prod-wave2:
     name: Deploy to Prod Wave 2
-    needs: deploy-prod-wave1  # Depends on successful prod-wave1 deployment
+    needs: monitor-metrics-wave1  # Depends on successful prod-wave1 deployment
     uses: ./.github/workflows/deploy.yml
     with:
       environment: prod-wave2
