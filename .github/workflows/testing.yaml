@@ -31,7 +31,7 @@ jobs:
             owner: context.repo.owner,
             repo: context.repo.repo,
             ref: `refs/tags/${newVersion}`,
-            sha: github.ref
+            sha: github.context.ref
           });
           octokit.rest.repos.createRelease({
             owner: context.repo.owner,
