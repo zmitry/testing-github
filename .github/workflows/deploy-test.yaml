@@ -25,7 +25,6 @@ jobs:
         uses: actions/github-script@v7
         id: create_deployment
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const environment = '${{ github.event.inputs.environment }}';
             const description = '${{ github.event.inputs.description }}';
