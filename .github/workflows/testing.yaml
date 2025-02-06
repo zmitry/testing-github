@@ -26,12 +26,12 @@ jobs:
           const latestTag = tags.length > 0 ? tags[0].name : '0.0.0';
           const [major, minor, patch, rest] = latestTag.split('.')
           const newVersion = `${major}.${minor}.${Number(patch) + 1}`;
-          console.log(newVersion, tags)
+          console.log(newVersion, tags, github, context)
           await github.rest.git.createRef({
             owner: context.repo.owner,
             repo: context.repo.repo,
             ref: `refs/tags/${newVersion}`,
-            sha: github.context.ref
+            sha: github.ref_name
           });
           octokit.rest.repos.createRelease({
             owner: context.repo.owner,
