@@ -1,0 +1,30 @@
+name: Deploy Chain to Production
+
+on:
+  push:
+    branches:
+      - main  # Trigger deployment on push to the main branch
+
+jobs:
+  deploy-staging:
+    name: Deploy to Staging
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: staging
+      url: https://your-staging-app.com
+
+  deploy-prod-wave1:
+    name: Deploy to Prod Wave 1
+    needs: deploy-staging  # Depends on successful staging deployment
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: prod-wave1
+      url: https://your-prod-wave1-app.com
+
+  deploy-prod-wave2:
+    name: Deploy to Prod Wave 2
+    needs: deploy-prod-wave1  # Depends on successful prod-wave1 deployment
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: prod-wave2
+      url: https://your-prod-wave2-app.com
