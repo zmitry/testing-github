@@ -17,11 +17,13 @@ jobs:
       uses: actions/github-script@v7
       with:
         script: |
-          function incrementVersion(version) {
-              return version.replace(/(v\d+\.\d+\.)\d+/, (match, prefix) => {
+          function incrementVersion(version, customHash) {
+              let newVersion = version.replace(/(v\d+\.\d+\.)\d+/, (match, prefix) => {
                   let currentVersion = parseInt(match.replace(prefix, ''));
                   return `${prefix}${currentVersion + 1}`;
               });
+          
+              return newVersion.replace(/-[a-f0-9]{8}$/, `-${customHash}`);
           }
           const { data: tags } = await github.rest.repos.listTags({
             owner: context.repo.owner,
@@ -31,7 +33,7 @@ jobs:
           const prefix = "linea"
           const filteredTags = tags.filter(el=> el.name.startsWith(prefix))
           const latestTag = filteredTags.length > 0 ? filteredTags[0].name : '0.0.0';
-          const newVersion = incrementVersion(latestTag)
+          const newVersion = incrementVersion(latestTag, context.sha.slice(0, 7)
           console.log(newVersion, tags, context)
           
           const result = await github.rest.repos.createRelease({
