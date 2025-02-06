@@ -41,7 +41,6 @@ jobs:
             target_commitish: context.sha,
             name: latestTag,
             body: "",
-            draft: true,
             prerelease: true
           });
           console.log(result)
