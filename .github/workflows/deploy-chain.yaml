@@ -5,6 +5,11 @@ on:
     branches:
       - main  # Trigger deployment on push to the main branch
 
+
+concurrency:
+  group: 'deploy'
+  cancel-in-progress: true
+
 jobs:
   deploy-staging:
     name: Deploy to Staging
