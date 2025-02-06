@@ -2,14 +2,8 @@ name: Deploy Chain to Production
 
 on:
   push:
-    branches:
-      - main  # Trigger deployment on push to the main branch
 
 
-
-concurrency:
-  group: 'deploy'
-  cancel-in-progress: true
 
 
 permissions:
