@@ -34,7 +34,7 @@ jobs:
           const newVersion = incrementVersion(latestTag)
           console.log(newVersion, tags, context)
           
-          await github.rest.repos.createRelease({
+          const result = await github.rest.repos.createRelease({
             owner: context.repo.owner,
             repo: context.repo.repo,
             tag_name: latestTag,
@@ -44,4 +44,5 @@ jobs:
             draft: true,
             prerelease: true
           });
+          console.log(result)
           core.setOutput('new_version', newVersion);
