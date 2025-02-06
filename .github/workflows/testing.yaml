@@ -39,9 +39,9 @@ jobs:
           const result = await github.rest.repos.createRelease({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            tag_name: latestTag,
+            tag_name: newVersion,
             target_commitish: context.sha,
-            name: latestTag,
+            name: newVersion,
             body: "",
             prerelease: true
           });
