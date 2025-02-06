@@ -3,9 +3,6 @@ name: Test
 on:
   push:
 
-
-
-
 permissions:
   id-token: write
   contents: write
@@ -25,3 +22,16 @@ jobs:
             repo: context.repo.repo,
             per_page: 1
           });
+          
+          const latestTag = tags.length > 0 ? tags[0].name : '0.0.0';
+          const [major, minor, patch] = latestTag.split('.').map(Number);
+          const newVersion = `${major}.${minor}.${patch + 1}`;
+
+          await github.git.createRef({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            ref: `refs/tags/${newVersion}`,
+            sha: context.sha
+          });
+
+          core.setOutput('new_version', newVersion);
