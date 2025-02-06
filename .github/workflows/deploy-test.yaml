@@ -39,7 +39,7 @@ jobs:
               ref: ref,
               environment: environment,
               description: description,
-              required_contexts: [], // Skip status checks
+              production_environment: true,
               auto_merge: false
             });
 
