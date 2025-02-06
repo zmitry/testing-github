@@ -37,6 +37,7 @@ jobs:
             owner: context.repo.owner,
             repo: context.repo.repo,
             tag_name: latestTag,
+            title: latestTag,
             body: "",
             draft: true,
             prerelease: true
