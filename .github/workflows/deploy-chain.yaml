@@ -5,7 +5,6 @@ on:
     branches:
       - main  # Trigger deployment on push to the main branch
 
-
 concurrency:
   group: 'deploy'
   cancel-in-progress: true
@@ -19,30 +18,32 @@ jobs:
       url: https://your-staging-app.com
 
   wait-for-deploy-and-run-e2e-testing:
+    name: Wait for Deploy and Run Integration Checks
     runs-on: ubuntu-latest
-    name: Wait for deploy and run integration checks
-    needs: deploy-staging  # Depends on successful staging deployment
-    run: |
-      echo test passed
+    needs: deploy-staging
+    steps:
+      - name: Run Integration Tests
+        run: echo "Integration tests passed"
 
   deploy-prod-wave1:
     name: Deploy to Prod Wave 1
-    needs: wait-for-deploy-and-run-e2e-testing  # Depends on successful staging deployment
+    needs: wait-for-deploy-and-run-e2e-testing
     uses: ./.github/workflows/deploy.yml
     with:
       environment: prod-wave1
       url: https://your-prod-wave1-app.com
       
   monitor-metrics-wave1:
+    name: Monitor Metrics for Wave 1
     runs-on: ubuntu-latest
-    name: wait for metrics checks
-    needs: deploy-staging  # Depends on successful staging deployment
-    run: |
-      echo test passed
+    needs: deploy-prod-wave1  # Corrected dependency
+    steps:
+      - name: Check Metrics
+        run: echo "Metrics monitoring passed"
       
   deploy-prod-wave2:
     name: Deploy to Prod Wave 2
-    needs: monitor-metrics-wave1  # Depends on successful prod-wave1 deployment
+    needs: monitor-metrics-wave1
     uses: ./.github/workflows/deploy.yml
     with:
       environment: prod-wave2
