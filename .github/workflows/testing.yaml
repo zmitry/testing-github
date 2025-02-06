@@ -26,10 +26,11 @@ jobs:
           const { data: tags } = await github.rest.repos.listTags({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            per_page: 1
+            per_page: 100
           });
-          
-          const latestTag = tags.length > 0 ? tags[0].name : '0.0.0';
+          const prefix = "linea"
+          const filteredTags = tags.filter(el=> el.name.startsWith(prefix))
+          const latestTag = filteredTags.length > 0 ? filteredTags[0].name : '0.0.0';
           const newVersion = incrementVersion(latestTag)
           console.log(newVersion, tags, context)
           
