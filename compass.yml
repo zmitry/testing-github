@@ -1,0 +1,21 @@
+name: struct
+id: 'ari:cloud:compass:34f2ef9b-ed02-482b-9b25-97ecedfd6236:component/e3c208c1-cd83-40bf-95e5-0b50933e6155/1339956e-03ab-4685-a7da-7fd000eee810'
+description: Basic and advanced data structures implemented with typescript
+configVersion: 1
+typeId: SERVICE
+ownerId: null
+fields:
+  tier: 4
+  isMonorepoProject: false
+links:
+  - name: null
+    type: REPOSITORY
+    url: 'https://github.com/zmitry/testing-github'
+relationships: {}
+labels:
+  - datastructures
+  - graph
+  - 'language:typescript'
+  - lru
+  - pairing-heap
+  - 'source:github'
