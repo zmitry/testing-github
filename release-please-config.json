@@ -1,13 +1,5 @@
 {
   "packages": {
-    ".": {
-      "changelog-path": "CHANGELOG.md",
-      "release-type": "simple",
-      "bump-minor-pre-major": false,
-      "bump-patch-for-minor-pre-major": false,
-      "draft": false,
-      "prerelease": false
-    },
     "services/ai-analyst": {
       "component": "ai-analyst",
       "changelog-path": "CHANGELOG.md",
