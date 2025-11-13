@@ -1,5 +1,5 @@
 {
   "services/ai-analyst": "1.0.0",
-  "services/location-anomaly": "1.0.0"
-
+  "services/location-anomaly": "1.0.0",
+  ".": "1.1.8"
 }
