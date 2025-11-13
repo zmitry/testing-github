@@ -1,0 +1,8 @@
+{
+  "packages": {
+    "services/ai-anomaly": {
+      "release-type": "python",
+      "changelog-path": "AI-analyst-CHANGELOG.md"
+    }
+  }
+}
