@@ -1,4 +1,4 @@
 {
-  "services/ai-analyst": "0.0.0",
-  "services/location-anomaly": "0.0.0"
+  "services/ai-analyst": "1.0.0",
+  "services/location-anomaly": "1.0.0"
 }
