@@ -1,4 +1,5 @@
 {
-  "services/ai-analyst": "0.0.0",
-  "services/location-anomaly": "0.0.0"
+  "services/analyst-model": "v1.4.15-ed65cf11",
+  "services/anomaly-detection-model": "0.0.0"
 }
+

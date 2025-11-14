@@ -1,6 +1,6 @@
 {
   "packages": {
-    "services/ai-analyst": {
+    "services/analyst-model": {
       "component": "ai-analyst",
       "changelog-path": "CHANGELOG.md",
       "release-type": "simple",
@@ -9,7 +9,7 @@
       "draft": false,
       "prerelease": false
     },
-    "services/location-anomaly": {
+    "services/anomaly-detection-model": {
       "component": "location-anomaly",
       "changelog-path": "CHANGELOG.md",
       "release-type": "simple",
