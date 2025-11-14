@@ -1,5 +1,5 @@
 {
-  "services/analyst-model": "v1.4.15",
-  "services/anomaly-detection-model": "1.4.16"
+  "services/analyst-model": "1.4.16",
+  "services/anomaly-detection-model": "1.4.17"
 }
 
