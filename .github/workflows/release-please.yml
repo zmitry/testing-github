@@ -20,23 +20,23 @@ jobs:
           token: ${{ secrets.MY_RELEASE_PLEASE_TOKEN }}
           config-file: .release-please-config.json
           manifest-file: .release-please-manifest.json
-      - name: Comment on release commit
+      - name: Comment on release PR
         if: steps.release.outputs.pr
         uses: actions/github-script@v7
         env:
           RELEASE_PR: ${{ steps.release.outputs.pr }}
         with:
           script: |
-            const pr = JSON.parse(process.env.RELEASE_PR);
-            const commitSha = "sha"
-            if (!commitSha) {
-              core.warning('Release PR output missing head SHA; skipping commit comment.');
+            const prOutput = process.env.RELEASE_PR;
+            if (!prOutput) {
+              core.warning('release-please action did not emit a PR payload; skipping comment.');
               return;
             }
-            const body = `Release PR #${pr.number} created for commit ${commitSha}.`;
-            await github.rest.repos.createCommitComment({
+            const pr = JSON.parse(prOutput);
+            const body = `Release PR #${pr.number} is ready for review.`;
+            await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              commit_sha: commitSha,
+              issue_number: pr.number,
               body,
             });
