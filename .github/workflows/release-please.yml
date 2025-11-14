@@ -26,16 +26,16 @@ jobs:
           RELEASE_PR: ${{ steps.release.outputs.pr }}
         with:
           script: |
-            const pr = JSON.parse(process.env.RELEASE_PR);
+            const pr_number = ${{ steps.release.outputs.pr.number }}
             const commitSha = "sha"
             if (!commitSha) {
               core.warning('Release PR output missing head SHA; skipping commit comment.');
               return;
             }
-            const body = `Release PR #${pr.number} created for commit ${commitSha}.`;
+            const body = `Release PR #${pr_number} created for commit ${commitSha}.`;
             await github.rest.repos.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: pr.number,
+              issue_number: pr_number,
               body,
             });
