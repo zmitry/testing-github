@@ -14,8 +14,29 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
-      - uses: googleapis/release-please-action@v4
+      - id: release
+        uses: googleapis/release-please-action@v4
         with:
           token: ${{ secrets.MY_RELEASE_PLEASE_TOKEN }}
           config-file: .release-please-config.json
           manifest-file: .release-please-manifest.json
+      - name: Comment on release commit
+        if: steps.release.outputs.pr
+        uses: actions/github-script@v7
+        env:
+          RELEASE_PR: ${{ steps.release.outputs.pr }}
+        with:
+          script: |
+            const pr = JSON.parse(process.env.RELEASE_PR);
+            const commitSha = "sha"
+            if (!commitSha) {
+              core.warning('Release PR output missing head SHA; skipping commit comment.');
+              return;
+            }
+            const body = `Release PR #${pr.number} created for commit ${commitSha}.`;
+            await github.rest.repos.createCommitComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: commitSha,
+              body,
+            });
